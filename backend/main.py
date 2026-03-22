@@ -9,12 +9,17 @@ load_dotenv()
 
 app = FastAPI(title="Prompt Vault API")
 
+
+origins = [
+    "http://localhost:3000",                   
+    os.getenv("FRONTEND_URL", ""),             
+    "https://prompt-vault-frontend-beryl.vercel.app",  
+    "https://prompt-vault-frontend-6whd108zi-emircankilicaslans-projects.vercel.app",  # Vercel preview
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        os.getenv("FRONTEND_URL", "http://localhost:3000"),
-        "https://*.vercel.app",
-    ],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
